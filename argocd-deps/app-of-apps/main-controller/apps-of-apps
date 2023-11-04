@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app-of-apps
+  namespace: openshift-gitops
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  destination:
+    name: in-cluster
+    namespace: default
+  info:
+    - name: Description
+      value: Application
+  project: in-cluster
+  source:
+    path: argocd-deps/app-of-apps/sub-app-of-apps
+    repoURL: 'https://github.com/tjungbauer/test-app-of-apps'
+    targetRevision: main

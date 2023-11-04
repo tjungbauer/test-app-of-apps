@@ -1,0 +1,13 @@
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: loki
+  namespace: {{ .Values.namespace.name | quote }}
+spec:
+  selector:
+    app: loki
+  ports:
+    - port: 3100
+      protocol: TCP

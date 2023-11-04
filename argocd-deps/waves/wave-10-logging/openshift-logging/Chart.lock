@@ -1,0 +1,6 @@
+dependencies:
+- name: openshift-logging
+  repository: https://charts.stderr.at/
+  version: 1.0.17
+digest: sha256:2ddb4ec3800fb9b3f86c483cfd4df5a06968200473a8425fcd9a4c588c8be3f9
+generated: "2023-03-14T16:11:29.4269+01:00"

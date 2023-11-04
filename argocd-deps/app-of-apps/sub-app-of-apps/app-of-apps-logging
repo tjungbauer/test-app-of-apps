@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app-of-apps-logging
+  namespace: openshift-gitops
+  annotations:
+    argocd.argoproj.io/sync-wave: "10"
+spec:
+  destination:
+    name: in-cluster
+    namespace: default
+  info:
+    - name: Description
+      value: Application to logging stuff (Wave 1)
+  project: in-cluster
+  source:
+    path: argocd-deps/waves/wave-10-logging
+    repoURL: 'https://github.com/tjungbauer/test-app-of-apps'
+    targetRevision: main

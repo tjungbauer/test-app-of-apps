@@ -1,0 +1,36 @@
+---
+namespace:
+  name: netobserv
+  create: true
+
+syncwave: '3'
+
+helper-operator:
+  operators:
+    netobserv-operator:
+      enabled: true
+      syncwave: '0'
+      namespace:
+        name: openshift-operators
+        create: false
+      subscription:
+        channel: v1.0.x
+        approval: Automatic
+        operatorName: netobserv-operator
+        source: community-operators
+        sourceNamespace: openshift-marketplace
+      operatorgroup:
+        create: false
+
+helper-status-checker:
+  enabled: true
+
+  operatorName: netobserv-operator
+
+  # where operator is installed
+  namespace:
+    name: openshift-operators
+
+  serviceAccount:
+    create: true
+    name: "status-checker-netobserv"
