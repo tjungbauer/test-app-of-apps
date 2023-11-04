@@ -6,5 +6,9 @@ dependencies:
   - name: openshift-logging
     version: "1.0.17"
     repository: https://charts.stderr.at/
+  - name: helper-loki-bucket-secret
+    version: ~1.0.0
+    repository: https://charts.stderr.at/
+    condition: helper-loki-bucket-secret.enabled
 maintainers:
   - name: tjungbauer

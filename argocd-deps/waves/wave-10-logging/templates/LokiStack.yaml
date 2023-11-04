@@ -1,21 +1,33 @@
+{{- if eq ( .Values.logging.enabled | toString) "true" }}
+{{- with .Values.logging }}
 ---
 apiVersion: loki.grafana.com/v1
 kind: LokiStack
 metadata:
   name: logging-loki
-  namespace: openshift-logging
+  namespace: {{ .namespace.name }}
   annotations:
-    argocd.argoproj.io/sync-wave: '2'
+    argocd.argoproj.io/sync-wave: {{ .lokistack.syncwave | default "3" | quote }}
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
-  size: 1x.small
+  size: {{ .lokistack.syncwave | default "1x.extra-small" | quote }}
   storage:
+    {{- if .lokistack.storage.schemas }}
+    schemas:
+    {{- range .lokistack.storage.schemas  }}
+    - version: {{ .version }}
+      effectiveDate: {{ .effectiveDate | quote }}
+    {{- end }}
+    {{- else }}
     schemas:
     - version: v12
       effectiveDate: '2022-06-01'
+    {{- end }}
     secret:
-      name: logging-loki-s3
-      type: s3
-  storageClassName: gp3-csi
+      name: {{ .lokistack.storage.secret.name }}
+      type: {{ .lokistack.storage.secret.type | default "s3" }}
+  storageClassName: {{ .lokistack.storageclassname }}
   tenants:
-    mode: openshift-logging
+    mode: {{ .namespace.name }}
+{{- end }}
+{{- end }}

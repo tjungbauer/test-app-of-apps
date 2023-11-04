@@ -1,7 +1,14 @@
 ---
+logging-namespace: &log-namespace openshift-logging
+bucketname: &bucketname logging-bucket
+lokisecret: &loki-secret-name logging-loki-s3
+
 # The operators are installed in a separate way in this case.
 # sub subchart
 helper-operator:
+    console_plugins:
+      - logging-view-plugin
+
     operators:
       cluster-logging-operator:
         enabled: true
@@ -18,15 +25,40 @@ openshift-logging:
     enabled: true
     syncwave: '1'
 
+# SubChart to create the loki secret if required.
+# The Secret must contain all required bucket information, while ODF creates a secret and a configmap for example.
+# A Kubernetes Job is created, that reads the data from the Secret and ConfigMap and creates a new secret for loki.
+helper-loki-bucket-secret:
+  # Enable Job creation
+  enabled: true
+
+  # Syncwave ... best to do after bucket creation
+  syncwave: 2
+
+  # Namespace for logging
+  namespace: *log-namespace
+
+  # Secretname that shall be created 
+  secretname: *loki-secret-name
+
+  # Name of the bucket
+  bucket:
+    name: *bucketname
+
+# Local values
 logging:
   enabled: true
   namespace: 
-    name: openshift-logging
+    name: *log-namespace 
 
   # Bucket that shall be created
   bucket:
     enabled: true
-    name: logging-bucket
+    name: *bucketname
+
+    # Syncwave for bucketclaim creation. This should be done very early, but it depends on ODF.
+    # Default: 1
+    syncwave: 1
 
     # is_secure: true
     # port: 443
@@ -35,6 +67,46 @@ logging:
     # Default: openshift-storage.noobaa.io
     storageclass: openshift-storage.noobaa.io
 
-    # Syncwave for bucketclaim creation. This should be done very early, but it depends on ODF.
-    # Default: 1
-    syncwave: 1
+  lokistack:
+    syncwave: 3
+
+    # storage settings
+    storage:
+
+      # Size defines one of the support Loki deployment scale out sizes.
+      # Can be either:
+      #   - 1x.extra-small (Default)
+      #   - 1x.small
+      #   - 1x.medium
+      # size: 1x.extra-small
+
+      # Secret for object storage authentication. Name of a secret in the same namespace as the LokiStack custom resource.
+      secret:
+
+        # Name of a secret in the namespace configured for object storage secrets.
+        name: *loki-secret-name
+
+        # Type of object storage that should be used
+        # Can bei either:
+        #  - swift
+        #  - azure
+        #  - s3 (default)
+        #  - alibabacloud
+        #  - gcs
+        #type: s3
+
+      # Schemas for reading and writing logs.
+      # schemas:
+      #  # Version for writing and reading logs.
+      #  # Can be v11 or v12
+      #  #
+      #  # Default: v12
+      #  - version: v12
+
+      #    # EffectiveDate is the date in UTC that the schema will be applied on. To ensure readibility of logs, this date should be before the current date in UTC.
+      #    # Default: 2022-06-01
+      #    effectiveDate: "2022-06-01"
+
+    # Storage class name defines the storage class for ingester/querier PVCs.
+    storageclassname: gp3-csi
+ 
