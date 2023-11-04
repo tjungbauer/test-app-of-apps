@@ -17,3 +17,6 @@ spec:
     path: argocd-deps/app-of-apps/sub-app-of-apps
     repoURL: 'https://github.com/tjungbauer/test-app-of-apps'
     targetRevision: main
+  syncPolicy:
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
