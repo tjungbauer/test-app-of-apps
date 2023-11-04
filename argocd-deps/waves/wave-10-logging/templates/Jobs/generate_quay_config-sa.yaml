@@ -1,0 +1,20 @@
+{{- if eq ( .Values.logging.enabled | toString) "true" }}
+{{- with .Values.logging }}
+{{- if .bucket }}
+{{- if eq ( .bucket.enabled | toString) "true" }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: create-config-secret-sa
+  namespace: {{ .namespace.name }}
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    argocd.argoproj.io/sync-wave: {{ .syncwave | default 3 | quote }}
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
