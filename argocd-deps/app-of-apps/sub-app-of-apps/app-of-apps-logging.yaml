@@ -17,3 +17,7 @@ spec:
     path: argocd-deps/waves/wave-10-logging
     repoURL: 'https://github.com/tjungbauer/test-app-of-apps'
     targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
