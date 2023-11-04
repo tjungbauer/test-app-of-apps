@@ -20,7 +20,8 @@ openshift-logging:
 
 logging:
   enabled: true
-  namespace: openshift-logging
+  namespace: 
+    name: openshift-logging
 
   # Bucket that shall be created
   bucket:
