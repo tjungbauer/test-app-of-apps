@@ -16,15 +16,6 @@ helper-operator:
         subscription:
           channel: stable
 
-# subchart
-openshift-logging:
-  # Vector is not enabled by default. Enable it with this parameter.
-  vector: true
-
-  loggingConfig:
-    enabled: true
-    syncwave: '1'
-
 # SubChart to create the loki secret if required.
 # The Secret must contain all required bucket information, while ODF creates a secret and a configmap for example.
 # A Kubernetes Job is created, that reads the data from the Secret and ConfigMap and creates a new secret for loki.
@@ -110,3 +101,11 @@ logging:
     # Storage class name defines the storage class for ingester/querier PVCs.
     storageclassname: gp3-csi
  
+ # subchart
+openshift-logging:
+  # Vector is not enabled by default. Enable it with this parameter.
+  vector: true
+
+  loggingConfig:
+    enabled: true
+    syncwave: '4'
