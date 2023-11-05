@@ -4,6 +4,6 @@ dependencies:
   version: 1.0.17
 - name: helper-loki-bucket-secret
   repository: https://charts.stderr.at/
-  version: 1.0.0
-digest: sha256:a6340a55b8df7ae7bd11ac5008ff0f65e928d2cc8fd2716cf91a6c23de0cc3e5
-generated: "2023-11-04T18:35:35.083181+01:00"
+  version: 1.0.1
+digest: sha256:338b1b33ac030d9b16863cc98b18463cde2b87adcf03f0c7fa2658a59269cfff
+generated: "2023-11-05T04:27:04.41491+01:00"
