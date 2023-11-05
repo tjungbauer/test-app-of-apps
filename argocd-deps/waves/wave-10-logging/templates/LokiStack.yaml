@@ -10,7 +10,7 @@ metadata:
     argocd.argoproj.io/sync-wave: {{ .lokistack.syncwave | default "3" | quote }}
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
-  size: {{ .lokistack.syncwave | default "1x.extra-small" | quote }}
+  size: {{ .lokistack.size | default "1x.extra-small" | quote }}
   storage:
     {{- if .lokistack.storage.schemas }}
     schemas:
