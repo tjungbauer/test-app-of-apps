@@ -45,7 +45,7 @@ helper-loki-bucket-secret:
   bucket:
     name: *bucketname
 
-# Local values
+# Local values.
 logging:
   enabled: true
   namespace: 
