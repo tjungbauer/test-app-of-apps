@@ -1,5 +1,5 @@
-{{- if eq ( .Values.logging.enabled | toString) "true" }}
-{{- with .Values.logging }}
+{{- if eq ( .Values.netobserv.enabled | toString) "true" }}
+{{- with .Values.netobserv }}
 ---
 apiVersion: loki.grafana.com/v1
 kind: LokiStack

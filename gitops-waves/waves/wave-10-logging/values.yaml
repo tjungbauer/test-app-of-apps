@@ -59,6 +59,8 @@ logging:
     storageclass: openshift-storage.noobaa.io
 
   lokistack:
+    # name of the Lokistack object and its syncwave (should be after bucket and secret generation)
+    name: logging-loki
     syncwave: 3
 
     # storage settings
