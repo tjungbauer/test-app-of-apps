@@ -28,6 +28,6 @@ spec:
       type: {{ .lokistack.storage.secret.type | default "s3" }}
   storageClassName: {{ .lokistack.storageclassname }}
   tenants:
-    mode: {{ .namespace.name }}
+    mode: {{ .lokistack.mode | default "static" }}
 {{- end }}
 {{- end }}

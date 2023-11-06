@@ -102,6 +102,14 @@ logging:
 
     # Storage class name defines the storage class for ingester/querier PVCs.
     storageclassname: gp3-csi
+
+    # Mode defines the mode in which lokistack-gateway component will be configured.
+    # Can be either:
+    #   - static (default)
+    #   - dynamic
+    #   - openshift-logging
+    #   - openshift-network
+    mode: openshift-logging
  
  # subchart
 openshift-logging:
