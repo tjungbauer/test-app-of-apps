@@ -1,10 +1,4 @@
 ---
-namespace:
-  name: netobserv
-  create: true
-
-syncwave: '3'
-
 netobserv-namespace: &netobserv-namespace netobserv
 bucketname: &bucketname netobserv-bucket
 netobservsecret: &netobserv-secret-name netobserv-loki-s3
@@ -14,6 +8,10 @@ netobserv:
   namespace: 
     name: *netobserv-namespace
     create: true
+
+  # SyncWave for Netobserv Configuration. Should be done after Lokistack or Bucket creation
+  # Default: 5
+  syncwave: 5
 
   # Bucket that shall be created
   bucket:
