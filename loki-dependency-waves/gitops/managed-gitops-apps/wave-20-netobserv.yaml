@@ -1,22 +1,25 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: app-of-apps
+  name: wave-20-loki-dependencies
   namespace: openshift-gitops
   annotations:
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "20"
 spec:
   destination:
     name: in-cluster
     namespace: default
   info:
     - name: Description
-      value: Application
+      value: Application to deploy and configure NetObserv Operator
   project: in-cluster
   source:
-    path: argocd-deps/app-of-apps/sub-app-of-apps
+    path: loki-dependency-waves/waves/wave-20-netobserv
     repoURL: 'https://github.com/tjungbauer/test-app-of-apps'
     targetRevision: main
   syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
     syncOptions:
       - ApplyOutOfSyncOnly=true
