@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: wave-10-loki-dependencies
+  name: in-cluster-wave-10
   namespace: openshift-gitops
   annotations:
     argocd.argoproj.io/sync-wave: "10"
@@ -14,7 +14,7 @@ spec:
       value: Application to deploy and configure OpenShift-Logging
   project: in-cluster
   source:
-    path: loki-dependency-waves/waves/wave-10-logging
+    path: gitops-waves/waves/wave-10-logging
     repoURL: 'https://github.com/tjungbauer/test-app-of-apps'
     targetRevision: main
   syncPolicy:
