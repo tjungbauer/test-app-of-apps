@@ -16,3 +16,4 @@ dependencies:
     condition: helper-loki-bucket-secret.enabled
 maintainers:
   - name: tjungbauer
+    email: tjungbau@redhat.com

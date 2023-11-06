@@ -9,6 +9,8 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: {{ .lokistack.syncwave | default "3" | quote }}
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
 spec:
   size: {{ .lokistack.size | default "1x.extra-small" | quote }}
   storage:
