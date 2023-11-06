@@ -56,7 +56,7 @@ helper-operator:
 helper-status-checker:
   enabled: true
 
-  operatorName: netobserv-operator
+  operatorName: network-observability-operator
 
   # where operator is installed
   namespace:
